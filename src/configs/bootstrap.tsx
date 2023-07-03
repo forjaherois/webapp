@@ -1,8 +1,8 @@
 import { NextUIProvider } from '@nextui-org/react';
-import { Router } from './configs/Router';
+import { Router } from './Router';
 import { BrowserRouter } from 'react-router-dom';
 
-const App = () => {
+const Bootstrap = () => {
     return (
         <BrowserRouter>
             <NextUIProvider>
@@ -12,4 +12,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default Bootstrap;

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { SignupPage } from '../apps/signup-page/signup-page';
-import { HomePage } from '../apps/home-page/home-page';
+import { SignupPage } from '../apps/signup/signup-page';
+import { HomePage } from '../apps/home/home-page';
 
 export const Router = () => {
     return (
