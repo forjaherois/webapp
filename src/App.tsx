@@ -1,11 +1,14 @@
-import React from 'react';
 import { NextUIProvider } from '@nextui-org/react';
+import { Router } from './configs/Router';
+import { BrowserRouter } from 'react-router-dom';
 
 const App = () => {
     return (
-        <NextUIProvider>
-            <h1>Hello World</h1>
-        </NextUIProvider>
+        <BrowserRouter>
+            <NextUIProvider>
+                <Router />
+            </NextUIProvider>
+        </BrowserRouter>
     );
 };
 
