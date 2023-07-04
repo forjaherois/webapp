@@ -5,73 +5,104 @@ import {
     WrapperItemsForm,
 } from './signup-form-styles';
 import { useState } from 'react';
+import { FormDataType, FormStatusType } from './signup-types';
 
 export const SignupForm = () => {
-    const [email, setEmail] = useState<string>('');
-    const [nickname, setNickname] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [isEmailValid, setEmailValid] = useState<boolean>(true);
-    const [incompleteForm, setIncompleteForm] = useState<boolean>();
+    const [formData, setFormData] = useState<FormDataType>({
+        email: '',
+        nickname: '',
+        password: '',
+    });
+
+    const [formStatus, setFormStatus] = useState<FormStatusType>({
+        email: 'default',
+        nickname: 'default',
+        password: 'default',
+    });
 
     const validateEmail = (email: string) => {
         const pattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-        setEmailValid(pattern.test(email) || email === '');
+        return pattern.test(email) || email === '';
     };
 
-    const getEmail = (email: string) => {
-        setIncompleteForm(false);
-        setEmail(email);
+    const handleInputChange = (field: keyof FormDataType, value: string) => {
+        setFormData({ ...formData, [field]: value });
+        setFormStatus((prevStatus) => ({ ...prevStatus, [field]: 'default' }));
     };
 
     const handleSubmit = () => {
-        const formInvalid = email === '' || nickname === '' || password === '';
-
-        if (formInvalid) {
-            setIncompleteForm(true);
-        }
+        setFormStatus({
+            email:
+                formData.email === '' || !validateEmail(formData.email)
+                    ? 'error'
+                    : 'default',
+            nickname: formData.nickname === '' ? 'error' : 'default',
+            password: formData.password === '' ? 'error' : 'default',
+        });
     };
 
     return (
         <ContainerForm data-testid='signup-form'>
             <WrapperItemsForm>
                 <Grid css={{ width: '40%' }}>
-                    <Text h2 weight='bold'>
-                        sign up
+                    <Text h3 weight='bold'>
+                        cadastre-se
                     </Text>
                 </Grid>
 
                 <Input
                     clearable
-                    onBlur={(e) => validateEmail(e.currentTarget.value)}
-                    onChange={(e) => getEmail(e.currentTarget.value)}
-                    css={{ marginTop: '15px' }}
+                    onBlur={(e) =>
+                        handleInputChange('email', e.currentTarget.value)
+                    }
+                    onChange={(e) =>
+                        handleInputChange('email', e.currentTarget.value)
+                    }
+                    css={{ marginTop: '25px' }}
                     width={'40%'}
                     label='email'
-                    status={
-                        isEmailValid && !incompleteForm ? 'default' : 'error'
+                    status={formStatus.email}
+                    helperColor='error'
+                    helperText={
+                        formStatus.email === 'error' ? 'obrigatório' : undefined
                     }
                 />
                 <Input
                     clearable
-                    css={{ marginTop: '10px' }}
-                    onChange={(e) => setNickname(e.currentTarget.value)}
+                    onChange={(e) =>
+                        handleInputChange('nickname', e.currentTarget.value)
+                    }
+                    css={{ marginTop: '25px' }}
                     width={'40%'}
                     label='nickname'
-                    status={incompleteForm ? 'error' : 'default'}
+                    status={formStatus.nickname}
+                    helperColor='error'
+                    helperText={
+                        formStatus.nickname === 'error'
+                            ? 'obrigatório'
+                            : undefined
+                    }
                 />
                 <Input.Password
                     clearable
-                    css={{ marginTop: '10px' }}
-                    onChange={(e) => setPassword(e.currentTarget.value)}
+                    onChange={(e) =>
+                        handleInputChange('password', e.currentTarget.value)
+                    }
+                    css={{ marginTop: '25px' }}
                     width={'40%'}
                     label='senha'
-                    status={incompleteForm ? 'error' : 'default'}
+                    helperColor='error'
+                    helperText={
+                        formStatus.password === 'error'
+                            ? 'obrigatório'
+                            : undefined
+                    }
+                    status={formStatus.password}
                 />
 
                 <ButtonSignup onPress={handleSubmit} shadow>
                     enviar
                 </ButtonSignup>
-                {incompleteForm && <Text>os campos são obrigatorios</Text>}
             </WrapperItemsForm>
         </ContainerForm>
     );
