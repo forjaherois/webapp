@@ -8,7 +8,7 @@ export const ContainerForm = styled(Grid.Container)`
 
 export const ButtonSignup = styled(Button)`
     background: #15447e;
-    width: 35%;
+    width: 40%;
     margin-top: 40px;
 `;
 
