@@ -1,8 +1,8 @@
 import { Grid } from '@nextui-org/react';
 import { styled } from 'styled-components';
 
-export const WrapperLogo = styled(Grid)<{ bgColor?: string }>`
-    background-color: ${(props) => props?.bgColor};
+export const WrapperLogo = styled(Grid)`
+    background-color: #e95513;
     display: flex;
     justify-content: center;
     align-items: center;

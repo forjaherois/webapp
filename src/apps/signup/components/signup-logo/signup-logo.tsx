@@ -3,7 +3,7 @@ import { WrapperLogo } from './signup-logo-styles';
 
 export const SignupLogo = () => {
     return (
-        <WrapperLogo bgColor='#E95513'>
+        <WrapperLogo data-testid='signup-logo'>
             <img
                 style={{ display: 'flex', marginBottom: '90px' }}
                 width={420}

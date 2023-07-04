@@ -7,7 +7,7 @@ import {
 
 export const SignupForm = () => {
     return (
-        <ContainerForm>
+        <ContainerForm data-testid='signup-form'>
             <WrapperItemsForm>
                 <Grid css={{ width: '35%' }}>
                     <Text h2 weight='bold'>
