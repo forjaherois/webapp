@@ -6,7 +6,7 @@ describe('SignupPage', () => {
     it('renders SignupLogo and SignupForm', () => {
         const { getByTestId } = render(<SignupPage />);
 
-        const signupLogo = getByTestId('signup-log');
+        const signupLogo = getByTestId('signup-logo');
         const signupForm = getByTestId('signup-form');
 
         expect(signupLogo).toBeInTheDocument();
