@@ -1,11 +1,11 @@
-import { Grid, Input, Text } from '@nextui-org/react';
+import { Grid, Input, Loading, Text } from '@nextui-org/react';
 import { ButtonSignup, ContainerForm, WrapperItemsForm } from './styles';
 import { useState } from 'react';
 import { FormDataType, FormStatusType } from './types';
 import { useSignup } from '../../../../apis/use-signup';
 
 export const SignupForm = () => {
-    const { postAccount } = useSignup();
+    const { postAccount, isLoading } = useSignup();
     const [formData, setFormData] = useState<FormDataType>({
         email: '',
         nickname: '',
@@ -39,8 +39,10 @@ export const SignupForm = () => {
         setFormStatus((prevStatus) => ({ ...prevStatus, [field]: 'default' }));
     };
 
-    const handleSubmit = () => {
-        if (validateSubmit()) postAccount(formData);
+    const handleSubmit = async () => {
+        if (validateSubmit()) {
+            await postAccount(formData);
+        }
     };
 
     return (
@@ -54,6 +56,7 @@ export const SignupForm = () => {
 
                 <Input
                     clearable
+                    disabled={isLoading}
                     onBlur={(e) => handleInputChange('email', e.currentTarget.value)}
                     onChange={(e) => handleInputChange('email', e.currentTarget.value)}
                     css={{ marginTop: '25px' }}
@@ -65,6 +68,7 @@ export const SignupForm = () => {
                 />
                 <Input
                     clearable
+                    disabled={isLoading}
                     onChange={(e) => handleInputChange('nickname', e.currentTarget.value)}
                     css={{ marginTop: '25px' }}
                     width={'40%'}
@@ -75,6 +79,7 @@ export const SignupForm = () => {
                 />
                 <Input.Password
                     clearable
+                    disabled={isLoading}
                     onChange={(e) => handleInputChange('password', e.currentTarget.value)}
                     css={{ marginTop: '25px' }}
                     width={'40%'}
@@ -84,8 +89,9 @@ export const SignupForm = () => {
                     status={formStatus.password}
                 />
 
-                <ButtonSignup onPress={handleSubmit} shadow>
-                    enviar
+                <ButtonSignup disabled={isLoading} onPress={handleSubmit} shadow>
+                    {isLoading && <Loading color='white' size='sm' />}
+                    {!isLoading && <span>enviar</span>}
                 </ButtonSignup>
             </WrapperItemsForm>
         </ContainerForm>

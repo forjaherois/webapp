@@ -6,6 +6,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "mock": "json-server src/mock/apis-mocks.json -p 4000 -w -d 3000 ",
     "test:noWatch": "yarn test --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint src",
@@ -44,6 +45,7 @@
     "eslint-plugin-react": "^7.26.1",
     "git-commit-msg-linter": "^3.2.8",
     "husky": "^7.0.2",
+    "json-server": "^0.17.3",
     "lint-staged": "^11.2.3",
     "prettier": "^2.4.1"
   },

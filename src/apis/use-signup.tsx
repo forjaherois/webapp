@@ -14,9 +14,8 @@ export const useSignup = () => {
     const postAccount = async (data: IAccountData) => {
         setIsLoading(true);
         try {
-            const response = await httpClient.post('/account', data);
+            await httpClient.post('/account', data);
             setIsLoading(false);
-            return response.data;
         } catch (error) {
             setIsLoading(false);
             setError(error);
