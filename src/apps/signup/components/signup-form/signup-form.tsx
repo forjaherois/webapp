@@ -28,10 +28,7 @@ export const SignupForm = () => {
 
     const handleSubmit = () => {
         setFormStatus({
-            email:
-                formData.email === '' || !validateEmail(formData.email)
-                    ? 'error'
-                    : 'default',
+            email: formData.email === '' || !validateEmail(formData.email) ? 'error' : 'default',
             nickname: formData.nickname === '' ? 'error' : 'default',
             password: formData.password === '' ? 'error' : 'default',
         });
@@ -48,51 +45,33 @@ export const SignupForm = () => {
 
                 <Input
                     clearable
-                    onBlur={(e) =>
-                        handleInputChange('email', e.currentTarget.value)
-                    }
-                    onChange={(e) =>
-                        handleInputChange('email', e.currentTarget.value)
-                    }
+                    onBlur={(e) => handleInputChange('email', e.currentTarget.value)}
+                    onChange={(e) => handleInputChange('email', e.currentTarget.value)}
                     css={{ marginTop: '25px' }}
                     width={'40%'}
                     label='email'
                     status={formStatus.email}
                     helperColor='error'
-                    helperText={
-                        formStatus.email === 'error' ? 'obrigatório' : undefined
-                    }
+                    helperText={formStatus.email === 'error' ? 'obrigatório' : undefined}
                 />
                 <Input
                     clearable
-                    onChange={(e) =>
-                        handleInputChange('nickname', e.currentTarget.value)
-                    }
+                    onChange={(e) => handleInputChange('nickname', e.currentTarget.value)}
                     css={{ marginTop: '25px' }}
                     width={'40%'}
                     label='nickname'
                     status={formStatus.nickname}
                     helperColor='error'
-                    helperText={
-                        formStatus.nickname === 'error'
-                            ? 'obrigatório'
-                            : undefined
-                    }
+                    helperText={formStatus.nickname === 'error' ? 'obrigatório' : undefined}
                 />
                 <Input.Password
                     clearable
-                    onChange={(e) =>
-                        handleInputChange('password', e.currentTarget.value)
-                    }
+                    onChange={(e) => handleInputChange('password', e.currentTarget.value)}
                     css={{ marginTop: '25px' }}
                     width={'40%'}
                     label='senha'
                     helperColor='error'
-                    helperText={
-                        formStatus.password === 'error'
-                            ? 'obrigatório'
-                            : undefined
-                    }
+                    helperText={formStatus.password === 'error' ? 'obrigatório' : undefined}
                     status={formStatus.password}
                 />
 
