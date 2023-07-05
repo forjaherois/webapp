@@ -1,5 +1,5 @@
 import Logo from '../../../../statics/imgs/logo-foja-herois-branca.png';
-import { WrapperLogo } from './signup-logo-styles';
+import { WrapperLogo } from './styles';
 
 export const SignupLogo = () => {
     return (

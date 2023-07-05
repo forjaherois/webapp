@@ -1,11 +1,7 @@
 import { Grid, Input, Text } from '@nextui-org/react';
-import {
-    ButtonSignup,
-    ContainerForm,
-    WrapperItemsForm,
-} from './signup-form-styles';
+import { ButtonSignup, ContainerForm, WrapperItemsForm } from './styles';
 import { useState } from 'react';
-import { FormDataType, FormStatusType } from './signup-types';
+import { FormDataType, FormStatusType } from './types';
 
 export const SignupForm = () => {
     const [formData, setFormData] = useState<FormDataType>({
