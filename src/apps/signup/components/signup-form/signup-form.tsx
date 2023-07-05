@@ -2,8 +2,10 @@ import { Grid, Input, Text } from '@nextui-org/react';
 import { ButtonSignup, ContainerForm, WrapperItemsForm } from './styles';
 import { useState } from 'react';
 import { FormDataType, FormStatusType } from './types';
+import { useSignup } from '../../../../apis/use-signup';
 
 export const SignupForm = () => {
+    const { postAccount } = useSignup();
     const [formData, setFormData] = useState<FormDataType>({
         email: '',
         nickname: '',
@@ -21,17 +23,24 @@ export const SignupForm = () => {
         return pattern.test(email) || email === '';
     };
 
+    const validateSubmit = () => {
+        const newFormStatus = {
+            email: formData.email === '' || !validateEmail(formData.email) ? 'error' : 'default',
+            nickname: formData.nickname === '' ? 'error' : 'default',
+            password: formData.password === '' ? 'error' : 'default',
+        } as FormStatusType;
+
+        setFormStatus(newFormStatus);
+        return !Object.values(newFormStatus).includes('error');
+    };
+
     const handleInputChange = (field: keyof FormDataType, value: string) => {
         setFormData({ ...formData, [field]: value });
         setFormStatus((prevStatus) => ({ ...prevStatus, [field]: 'default' }));
     };
 
     const handleSubmit = () => {
-        setFormStatus({
-            email: formData.email === '' || !validateEmail(formData.email) ? 'error' : 'default',
-            nickname: formData.nickname === '' ? 'error' : 'default',
-            password: formData.password === '' ? 'error' : 'default',
-        });
+        if (validateSubmit()) postAccount(formData);
     };
 
     return (
