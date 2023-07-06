@@ -1,5 +1,5 @@
+import httpClient from '@src/configs/http-client';
 import { useState } from 'react';
-import httpClient from '../configs/http-client';
 
 interface IAccountData {
     email: string;

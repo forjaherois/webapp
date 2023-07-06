@@ -1,6 +1,6 @@
 import { NextUIProvider } from '@nextui-org/react';
-import { Router } from './Router';
 import { BrowserRouter } from 'react-router-dom';
+import { Router } from './router';
 
 const Bootstrap = () => {
     return (

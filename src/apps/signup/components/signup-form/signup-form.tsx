@@ -2,7 +2,7 @@ import { Grid, Input, Loading, Text } from '@nextui-org/react';
 import { ButtonSignup, ContainerForm, WrapperItemsForm } from './styles';
 import { useState } from 'react';
 import { FormDataType, FormStatusType } from './types';
-import { useSignup } from '../../../../apis/use-signup';
+import { useSignup } from '@src/apis/use-sigup';
 
 export const SignupForm = () => {
     const { postAccount, isLoading } = useSignup();

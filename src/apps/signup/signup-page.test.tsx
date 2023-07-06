@@ -1,15 +1,25 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { SignupPage } from './signup-page';
-import '@testing-library/jest-dom';
 
-describe('SignupPage', () => {
+jest.mock('./components/signup-logo/signup-logo', () => {
+    return {
+        __esModule: true,
+        SignupLogo: () => <div data-testid='signupLogo' />,
+    };
+});
+
+jest.mock('./components/signup-form/signup-form', () => {
+    return {
+        __esModule: true,
+        SignupForm: () => <div data-testid='signupForm' />,
+    };
+});
+
+describe('SignupPage Component', () => {
     it('renders SignupLogo and SignupForm', () => {
-        const { getByTestId } = render(<SignupPage />);
+        render(<SignupPage />);
 
-        const signupLogo = getByTestId('signup-logo');
-        const signupForm = getByTestId('signup-form');
-
-        expect(signupLogo).toBeInTheDocument();
-        expect(signupForm).toBeInTheDocument();
+        expect(screen.getByTestId('signupLogo')).toBeInTheDocument();
+        expect(screen.getByTestId('signupForm')).toBeInTheDocument();
     });
 });

@@ -1,28 +1,40 @@
-import '@testing-library/jest-dom';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { useSignup } from '@src/apis/use-sigup';
+import userEvent from '@testing-library/user-event';
 import { SignupForm } from './signup-form';
 
-describe('<SignupForm />', () => {
+jest.mock('@src/apis/use-sigup');
+
+describe('SignupForm Component', () => {
+    let mockPostAccount: jest.Mock;
+
     beforeEach(() => {
+        mockPostAccount = jest.fn();
+        (useSignup as jest.Mock).mockImplementation(() => ({ postAccount: mockPostAccount, isLoading: false }));
+    });
+
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('should render correctly', () => {
         render(<SignupForm />);
+        expect(screen.getByTestId('signup-form')).toBeInTheDocument();
     });
 
-    it('should render SignupForm correctly', () => {
-        const signupForm = screen.getByTestId('signup-form');
-        expect(signupForm).toBeInTheDocument();
-    });
+    it('should not call postAccount when the data is invalid', async () => {
+        render(<SignupForm />);
 
-    it('should change value when typing in the inputs', () => {
         const emailInput = screen.getByLabelText('email');
-        fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
-        expect((emailInput as HTMLInputElement).value).toBe('test@test.com');
-
         const nicknameInput = screen.getByLabelText('nickname');
-        fireEvent.change(nicknameInput, { target: { value: 'testNickname' } });
-        expect((nicknameInput as HTMLInputElement).value).toBe('testNickname');
-
         const passwordInput = screen.getByLabelText('senha');
-        fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
-        expect((passwordInput as HTMLInputElement).value).toBe('testPassword');
+        const submitButton = screen.getByText('enviar');
+
+        userEvent.type(emailInput, 'test');
+        userEvent.type(nicknameInput, 'testNickname');
+        userEvent.type(passwordInput, 'testPassword');
+        userEvent.click(submitButton);
+
+        await waitFor(() => expect(mockPostAccount).not.toHaveBeenCalled());
     });
 });

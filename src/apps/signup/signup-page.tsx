@@ -1,6 +1,6 @@
 import { Grid } from '@nextui-org/react';
-import { SignupForm } from './components/signup-form/signup-form';
 import { SignupLogo } from './components/signup-logo/signup-logo';
+import { SignupForm } from './components/signup-form/signup-form';
 
 export const SignupPage = () => {
     return (
