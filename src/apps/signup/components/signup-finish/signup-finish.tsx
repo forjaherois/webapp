@@ -1,7 +1,10 @@
 import { Button, Grid, Text } from '@nextui-org/react';
 import { WrapperFinish } from './styles';
+import { SignupContext } from '@src/contexts/signup-context';
+import { useContext } from 'react';
 
 export const SignupFinish = () => {
+    const { handleSignupFinsih } = useContext(SignupContext);
     return (
         <WrapperFinish>
             <Grid>
@@ -13,7 +16,7 @@ export const SignupFinish = () => {
                     <br /> Enviamos um link de confirmação para o seu e-mail.
                 </Text>
             </Grid>
-            <Button css={{ background: '#15447e', marginTop: '45px' }} shadow>
+            <Button onPress={handleSignupFinsih} css={{ background: '#15447e', marginTop: '45px' }} shadow>
                 OK
             </Button>
         </WrapperFinish>

@@ -1,11 +1,13 @@
 import { Grid, Input, Loading, Text } from '@nextui-org/react';
 import { ButtonSignup, ContainerForm, WrapperItemsForm } from './styles';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FormDataType, FormStatusType } from './types';
 import { useSignup } from '@src/apis/use-sigup';
+import { SignupContext } from '@src/contexts/signup-context';
 
 export const SignupForm = () => {
-    const { postAccount, isLoading } = useSignup();
+    const { handleSignupFinsih } = useContext(SignupContext);
+    const { postAccount, isLoading, error } = useSignup();
     const [formData, setFormData] = useState<FormDataType>({
         email: '',
         nickname: '',
@@ -42,6 +44,7 @@ export const SignupForm = () => {
     const handleSubmit = async () => {
         if (validateSubmit()) {
             await postAccount(formData);
+            if (!error) handleSignupFinsih();
         }
     };
 

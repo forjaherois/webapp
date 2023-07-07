@@ -9,7 +9,7 @@ interface IAccountData {
 
 export const useSignup = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<any>(null);
+    const [error, setError] = useState<boolean>(false);
 
     const postAccount = async (data: IAccountData) => {
         setIsLoading(true);
@@ -18,7 +18,7 @@ export const useSignup = () => {
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
-            setError(error);
+            setError(true);
         }
     };
 
